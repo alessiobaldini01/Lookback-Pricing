@@ -6,8 +6,8 @@
 namespace ensiie
 {
     MonteCarlo::MonteCarlo(double t, double T, double S0, double r, double sigma,
-        int N, double dS, int M, const std::string& optionStr)
-        : Data(t, T, S0, r, sigma, N, dS, M, optionStr)
+        int N, double dS, int M, const std::string& optionStr, unsigned long seed)
+        : Data(t, T, S0, r, sigma, N, dS, M, optionStr, seed)
     {
         // Time discretization: daily steps between t_ and T_.
         dt_ = 1.0 / 365.0;
@@ -40,9 +40,8 @@ namespace ensiie
         const double muTerm = (r_ - 0.5 * sigma_ * sigma_) * dt_;
         const double sigmaTerm = sigma_ * std::sqrt(dt_);
 
-        // Random number generator and standard normal distribution
-        std::random_device rd;
-        std::mt19937_64 gen(rd());
+        
+        std::mt19937_64 gen(seed_);
         std::normal_distribution<double> normal(0.0, 1.0);
 
         // Use antithetic variates in pairs (i, i+1)

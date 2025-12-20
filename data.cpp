@@ -64,12 +64,13 @@ namespace ensiie
 		throw std::invalid_argument("Option type must be 'call' or 'put' (any casing).");
 	}
 
-	Data::Data(double t, double T, double S0, double r, double sigma, int N, double dS, int M, const std::string& optionStr)
-		: t_(t), T_(T), S0_(S0), r_(r), sigma_(sigma), N_(N), dS_(dS), M_(M), optionType_(parse_option_type(optionStr))
+	Data::Data(double t, double T, double S0, double r, double sigma, int N, double dS, int M, const std::string& optionStr, unsigned long seed)
+		: t_(t), T_(T), S0_(S0), r_(r), sigma_(sigma), N_(N), dS_(dS), M_(M), optionType_(parse_option_type(optionStr)), seed_(seed)
 	{
 		validation();
 		discretize();
 	}
+
 
 	double Data::get_t() const
 	{
@@ -129,5 +130,10 @@ namespace ensiie
 	OptionType Data::get_option_type() const
 	{
 		return optionType_;
+	}
+
+	unsigned long Data::get_seed() const
+	{
+		return seed_;
 	}
 }

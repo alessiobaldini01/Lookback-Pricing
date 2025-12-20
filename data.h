@@ -20,6 +20,9 @@ namespace ensiie
 		/** @brief Initial time. */
 		const double t_;
 
+		/** @brief Seed. */
+		const unsigned long seed_;
+
 		/** @brief Maturity time. Must be >= t_. */
 		const double T_;
 
@@ -78,7 +81,8 @@ namespace ensiie
 		 * @param M Number of discrete price nodes.
 		 * @param optionStr Option type as string (\"call\" or \"put\", any casing).
 		 */
-		Data(double t, double T, double S0, double r, double sigma, int N, double dS, int M, const std::string& optionStr);
+		Data(double t, double T, double S0, double r, double sigma, int N, double dS, int M, const std::string& optionStr, unsigned long seed);
+
 
 		/** @brief Returns the initial time. */
 		double get_t() const;
@@ -115,5 +119,8 @@ namespace ensiie
 
 		/** @brief Returns the option type. */
 		OptionType get_option_type() const;
+
+		/** @brief Returns the seed */
+		unsigned long get_seed() const;
 	};
 }

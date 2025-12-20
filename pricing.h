@@ -23,8 +23,8 @@ namespace ensiie
     {
     public:
         Pricing(double t, double T, double S0, double r, double sigma,
-            int N, double dS, int M, const std::string& optionType)
-            : MonteCarlo(t, T, S0, r, sigma, N, dS, M, optionType)
+            int N, double dS, int M, const std::string& optionType, unsigned long seed)
+            : MonteCarlo(t, T, S0, r, sigma, N, dS, M, optionType,seed)
         {
         }
 
@@ -39,6 +39,12 @@ namespace ensiie
         double payoff_mean() const;              // mean payoff before discount
         double payoff_std() const;               // std of payoff
         double payoff_stderr() const;            // std / sqrt(N)
+
+        virtual double delta() const = 0;
+        virtual double gamma() const = 0;
+        virtual double vega() const = 0;
+        virtual double theta() const = 0;
+        virtual double rho() const = 0;
 
     };
 }
