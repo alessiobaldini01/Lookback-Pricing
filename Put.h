@@ -1,5 +1,4 @@
 #pragma once
-
 #include "pricing.h"
 #include <vector>
 #include <string>

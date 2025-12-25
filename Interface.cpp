@@ -1,6 +1,6 @@
 #include "Interface.h"
-#include "Call.h"
-#include "Put.h"
+#include "call.h"
+#include "put.h"
 #include <iostream>
 #include <iomanip>
 #include <stdexcept>
@@ -19,22 +19,21 @@ namespace ensiie
     void Interface::parse_arguments(int argc, char* argv[])
     {
         // Check for 12  arguments 
-        if (argc < 12) {
+        if (argc < 11) {
             throw std::runtime_error("Insufficient arguments provided by Excel.");
         }
 
         // Mapping raw arguments to internal struct
-        args_.mode = argv[1];
-        args_.type = argv[2];
-        args_.t = std::stod(argv[3]);
-        args_.T = std::stod(argv[4]);
-        args_.S0 = std::stod(argv[5]);
-        args_.r = std::stod(argv[6]);
-        args_.sigma = std::stod(argv[7]);
-        args_.N = std::stoi(argv[8]);
-        args_.dS = std::stod(argv[9]);
-        args_.M = std::stoi(argv[10]);
-        args_.seed = std::stoul(argv[11]);
+        args_.type = argv[1];
+        args_.t = std::stod(argv[2]);
+        args_.T = std::stod(argv[3]);
+        args_.S0 = std::stod(argv[4]);
+        args_.r = std::stod(argv[5]);
+        args_.sigma = std::stod(argv[6]);
+        args_.N = std::stoi(argv[7]);
+        args_.dS = std::stod(argv[8]);
+        args_.M = std::stoi(argv[9]);
+        args_.seed = std::stoul(argv[10]);
     }
 
     
@@ -57,17 +56,20 @@ namespace ensiie
     {
         std::unique_ptr<Pricing> option;
 
-        // Use Data's static method for case-insensitive type validation
-        ensiie::OptionType type = ensiie::Data::parse_option_type(args_.type);
+        std::string type = args_.type;
+        std::transform(type.begin(), type.end(), type.begin(),
+            [](unsigned char c) { return std::tolower(c); });
 
-        // Polymorphic instantiation based on validated enum
-        if (type == ensiie::OptionType::Call) {
+        if (type == "call") {
             option = std::make_unique<Call>(args_.t, args_.T, args_.S0, args_.r, args_.sigma,
                 args_.N, args_.dS, args_.M, args_.seed);
         }
-        else {
+        else if (type == "put") {
             option = std::make_unique<Put>(args_.t, args_.T, args_.S0, args_.r, args_.sigma,
                 args_.N, args_.dS, args_.M, args_.seed);
+        }
+        else {
+            throw std::runtime_error("Invalid option type. Use 'call' or 'put'.");
         }
 
         // Print results formatted for Excel: Price;Delta;Gamma;Theta;Rho;Vega
@@ -86,7 +88,13 @@ namespace ensiie
         double S_min = std::max(0.0, args_.S0 - (args_.M * args_.dS / 2.0));
 
         // Validate type once before starting 
-        ensiie::OptionType type = ensiie::Data::parse_option_type(args_.type);
+        std::string type = args_.type;
+        std::transform(type.begin(), type.end(), type.begin(),
+            [](unsigned char c) { return std::tolower(c); });
+
+        if (type != "call" && type != "put")
+            throw std::runtime_error("Invalid option type. Use 'call' or 'put'.");
+
 
         for (int i = 0; i <= args_.M; ++i)
         {
@@ -95,7 +103,7 @@ namespace ensiie
 
             std::unique_ptr<Pricing> option;
 
-            if (type == ensiie::OptionType::Call) {
+            if (type == "call") {
                 option = std::make_unique<Call>(args_.t, args_.T, current_S, args_.r, args_.sigma,
                     args_.N, args_.dS, args_.M, current_seed);
             }

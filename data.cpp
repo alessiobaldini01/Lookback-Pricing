@@ -71,7 +71,6 @@ namespace ensiie
 		discretize();
 	}
 
-
 	double Data::get_t() const
 	{
 		return t_;

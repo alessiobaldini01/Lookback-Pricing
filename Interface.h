@@ -32,7 +32,6 @@ namespace ensiie {
          * @brief Internal structure to store parsed market and simulation parameters.
          */
         struct InputArgs {
-            std::string mode; // "FULL" to compute all in one step 
             std::string type;  
             double t;          
             double T;          

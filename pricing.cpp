@@ -1,5 +1,4 @@
- #include "pricing.h"
-
+#include "pricing.h"
 #include <cmath>    // std::exp, std::sqrt
 #include <vector>
 

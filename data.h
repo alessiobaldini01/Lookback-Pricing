@@ -20,9 +20,6 @@ namespace ensiie
 		/** @brief Initial time. */
 		const double t_;
 
-		/** @brief Seed. */
-		const unsigned long seed_;
-
 		/** @brief Maturity time. Must be >= t_. */
 		const double T_;
 
@@ -47,6 +44,9 @@ namespace ensiie
 		/** @brief Option type (Call or Put). */
 		const OptionType optionType_;
 
+		/** @brief Seed. */
+		const unsigned long seed_;
+
 		/** @brief Minimum price value in the grid. */
 		double Smin_;
 
@@ -64,6 +64,7 @@ namespace ensiie
 
 		/** @brief Parse option type from string ("call","put"). */
 		static OptionType parse_option_type(const std::string& optStr);
+
 
 	public:
 		/**
