@@ -99,7 +99,7 @@ namespace ensiie
         for (int i = 0; i <= args_.M; ++i)
         {
             double current_S = S_min + i * args_.dS;
-            unsigned long current_seed = args_.seed + i; 
+            unsigned long current_seed = args_.seed ; //understand   unsigned long current_seed = args_.seed + i;
 
             std::unique_ptr<Pricing> option;
 

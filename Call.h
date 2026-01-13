@@ -51,7 +51,6 @@ namespace ensiie
          * @return The sensitivity of the price to the underlying asset price.
          */
         double delta() const override;
-
         /**
 		 * @brief Computes Gamma using Central Finite Differences (CALL option).
          * @return The sensitivity of Delta to the underlying asset price.
