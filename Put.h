@@ -8,7 +8,7 @@ namespace ensiie
     /**
      * @brief Class representing the Put Option (implemented with Lookback payoff).
      *
-     * The payoff is defined as max(S_t) - S_T over the time interval [0, T].
+     * The payoff is defined as max_{0<=t<=T} S_t - S_T.
      */
     class Put : public Pricing
     {
@@ -42,34 +42,34 @@ namespace ensiie
          */
         double payoff(const std::vector<double>& path) const override;
 
-        // --- GREEKS ---
+        // GREEKS
 
         /**
-		 * @brief Computes Delta using Forward Finite Differences (PUT option).
+		 * @brief Computes Delta using pathwise approach.
          * @return The sensitivity of the price to the underlying asset price.
          */
         double delta() const override;
 
         /**
-		 * @brief Computes Gamma using Central Finite Differences (PUT option).
+		 * @brief Gamma equals zero since Delta is linear in the initial spot S0.
          * @return The sensitivity of Delta to the underlying asset price.
          */
         double gamma() const override;
 
         /**
-		 * @brief Computes Vega using Forward Finite Differences (PUT option).
+		 * @brief Computes Vega using pathwise approach.
          * @return The sensitivity of the price to volatility.
          */
         double vega() const override;
 
         /**
-		 * @brief Computes Theta using Forward Finite Differences (PUT option).
+		 * @brief Computes Theta using Forward Finite Differences.
          * @return The sensitivity of the price to time passage.
          */
         double theta() const override;
 
         /**
-		 * @brief Computes Rho using Forward Finite Differences (PUT option).
+		 * @brief Computes Rho using Forward Finite Differences.
          * @return The sensitivity of the price to the risk-free rate.
          */
         double rho() const override;

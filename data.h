@@ -81,6 +81,7 @@ namespace ensiie
 		 * @param dS Price grid step.
 		 * @param M Number of discrete price nodes.
 		 * @param optionStr Option type as string (\"call\" or \"put\", any casing).
+		 * @param seed Seed for random number generation.
 		 */
 		Data(double t, double T, double S0, double r, double sigma, int N, double dS, int M, const std::string& optionStr, unsigned long seed);
 

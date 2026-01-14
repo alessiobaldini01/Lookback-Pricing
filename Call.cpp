@@ -4,14 +4,14 @@
 
 namespace ensiie
 {
-    //  CONSTRUCTOR 
+    // CONSTRUCTOR 
     Call::Call(double t, double T, double S0, double r, double sigma,
         int N, double dS, int M, unsigned long seed)
         : Pricing(t, T, S0, r, sigma, N, dS, M, "call", seed)
     {
     }
 
-    //  PAYOFF 
+    // PAYOFF 
     double Call::payoff(const std::vector<double>& path) const
     {
         double ST = path.back();
@@ -23,7 +23,7 @@ namespace ensiie
         return ST - Smin;
     }
 
-    //  GREEKS IMPLEMENTATION 
+    // GREEKS IMPLEMENTATION 
     // DELTA 
 
     double Call::delta() const
@@ -50,8 +50,6 @@ namespace ensiie
     {
         return 0.0;
     }
-
-
 
 
     // VEGA
@@ -125,7 +123,7 @@ namespace ensiie
     }
     
 	
-
+    // RHO
     double Call::rho() const
     {
         double eps_rho = 0.0001;

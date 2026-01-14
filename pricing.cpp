@@ -52,7 +52,7 @@ namespace ensiie
 
     double Pricing::payoff_stderr() const
     {
-            const int N = get_N();
+        const int N = get_N();
         if (N == 0)
             return 0.0;
         return payoff_std() / std::sqrt(static_cast<double>(N));

@@ -4,14 +4,14 @@
 
 namespace ensiie
 {
-    //  CONSTRUCTOR 
+    // CONSTRUCTOR 
     Put::Put(double t, double T, double S0, double r, double sigma,
         int N, double dS, int M, unsigned long seed)
         : Pricing(t, T, S0, r, sigma, N, dS, M, "put", seed)
     {
     }
 
-    //  PAYOFF 
+    // PAYOFF 
     double Put::payoff(const std::vector<double>& path) const
     {
         double ST = path.back();
@@ -23,11 +23,11 @@ namespace ensiie
         return Smax - ST;
     }
 
-    //  GREEKS IMPLEMENTATION
+    // GREEKS IMPLEMENTATION
 
 	// DELTA
 
-        double Put::delta() const
+    double Put::delta() const
     {
         const auto& paths = get_paths();
         const int N = get_N();
@@ -45,7 +45,7 @@ namespace ensiie
         return discount * sum / static_cast<double>(N);
     }
 
-		// GAMMA
+	// GAMMA
     double Put::gamma() const
     {
         return 0.0;
@@ -121,7 +121,7 @@ namespace ensiie
         return (up.price() - this->price()) / eps_theta;
     }
 
-	
+	// RHO
     double Put::rho() const
     {
         double eps_rho = 0.0001;

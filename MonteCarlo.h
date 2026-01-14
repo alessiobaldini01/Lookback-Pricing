@@ -19,7 +19,7 @@ namespace ensiie
          * Builds the time grid and immediately simulates the paths.
          */
         MonteCarlo(double t, double T, double S0, double r, double sigma,
-            int N, double dS, int M, const std::string& optionStr, unsigned long seed); //Maybe add seed
+            int N, double dS, int M, const std::string& optionStr, unsigned long seed);
 
         /**
          * @brief (Re)simulate all GBM paths using antithetic variates.

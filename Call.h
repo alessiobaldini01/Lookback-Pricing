@@ -6,9 +6,9 @@
 namespace ensiie
 {
     /**
-     * @brief Class representing the Option (implemented with Lookback payoff).
+     * @brief Class representing the Call Option (implemented with Lookback payoff).
      *
-     * The payoff is defined as S_T - min(S_t) over the time interval [0, T].
+     * The payoff is defined as S_T - min_{0<=t<=T} S_{t}.
      */
     class Call : public Pricing
     {
@@ -37,40 +37,38 @@ namespace ensiie
         /**
          * @brief Computes the payoff for a specific simulated path.
          *
-         * Logic: Payoff = S_T - min(S_t) for t in [0, T].
-         *
          * @param path Vector containing the simulated price trajectory.
          * @return The calculated payoff value.
          */
         double payoff(const std::vector<double>& path) const override;
 
-        // --- GREEKS ---
+        // GREEKS
 
         /**
-		 * @brief Computes Delta using Forward Finite Differences (CALL option).
+		 * @brief Computes Delta using pathwise approach.
          * @return The sensitivity of the price to the underlying asset price.
          */
         double delta() const override;
         /**
-		 * @brief Computes Gamma using Central Finite Differences (CALL option).
+		 * @brief Gamma equals zero since Delta is linear in the initial spot S0.
          * @return The sensitivity of Delta to the underlying asset price.
          */
         double gamma() const override;
 
         /**
-		 * @brief Computes Vega using Forward Finite Differences (CALL option).
+		 * @brief Computes Vega using pathwise apporach..
          * @return The sensitivity of the price to volatility.
          */
         double vega() const override;
 
         /**
-		 * @brief Computes Theta using Forward Finite Differences (CALL option).
+		 * @brief Computes Theta using Forward Finite Differences.
          * @return The sensitivity of the price to time passage.
          */
         double theta() const override;
 
         /**
-		 * @brief Computes Rho using Forward Finite Differences (CALL option).
+		 * @brief Computes Rho using Forward Finite Differences.
          * @return The sensitivity of the price to the risk-free rate.
          */
         double rho() const override;
