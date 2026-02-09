@@ -10,8 +10,8 @@ namespace ensiie
         : Data(t, T, S0, r, sigma, N, dS, M, optionStr, seed)
     {
         // Time discretization: daily steps between t_ and T_.
-        dt_ = 1.0 / 365.0;
-        Nt_ = static_cast<int>((T_ - t_) * 365.0);
+        dt_ = 1.0 / 252.0;
+        Nt_ = static_cast<int>((T_ - t_) * 252.0);
 
         if (Nt_ <= 0)
             throw std::invalid_argument(

@@ -113,7 +113,7 @@ namespace ensiie
     // THETA
     double Call::theta() const
     {
-        double eps_theta = 1.0 / 365.0;
+        double eps_theta = 1.0 / 252.0;
 
         if (t_ + eps_theta >= T_) eps_theta = (T_ - t_) * 0.5;
 
