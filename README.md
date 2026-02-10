@@ -5,6 +5,7 @@
 /src             # C++ source files
 /doc             # index.html (Doxygen HTML documentation)
 Lookback.xlsm    # Excel VBA interface
+Doxyfile         # Doxygen configuration file
 ```
 
 ## COMPILATION
