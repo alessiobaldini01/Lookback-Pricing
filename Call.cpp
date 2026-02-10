@@ -115,22 +115,27 @@ namespace ensiie
     {
         double eps_theta = 1.0 / 252.0;
 
-        if (t_ + eps_theta >= T_) eps_theta = (T_ - t_) * 0.5;
+        // Check time bounds using member variables t_ and T_
+        if (t_ + eps_theta >= T_)
+            eps_theta = (T_ - t_) * 0.5;
 
-        Call up(t_ + eps_theta, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
+        Call now(t_, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
+        Call forward(t_ + eps_theta, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
 
-        return (up.price() - this->price()) / eps_theta;
+        // Forward finite difference
+        return (forward.price() - now.price()) / eps_theta;
     }
     
 	
-    // RHO
     double Call::rho() const
     {
         double eps_rho = 0.0001;
 
+        Call now(t_, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
         Call up(t_, T_, S0_, r_ + eps_rho, sigma_, N_, dS_, M_, seed_);
 
-        return (up.price() - this->price()) / eps_rho;
+        // Forward finite difference
+        return (up.price() - now.price()) / eps_rho;
     }
 
 }

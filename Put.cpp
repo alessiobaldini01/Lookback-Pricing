@@ -111,14 +111,17 @@ namespace ensiie
 	// THETA
     double Put::theta() const
     {
-        double eps_theta = 1.0 / 252.0; 
+        double eps_theta = 1.0 / 252.0;
 
         // Check time bounds using member variables t_ and T_
-        if (t_ + eps_theta >= T_) eps_theta = (T_ - t_) * 0.5;
+        if (t_ + eps_theta >= T_)
+            eps_theta = (T_ - t_) * 0.5;
 
-        Put up(t_ + eps_theta, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
+        Put now(t_, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
+        Put forward(t_ + eps_theta, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
 
-        return (up.price() - this->price()) / eps_theta;
+        // Forward finite difference
+        return (forward.price() - now.price()) / eps_theta;
     }
 
 	// RHO
@@ -126,9 +129,11 @@ namespace ensiie
     {
         double eps_rho = 0.0001;
 
+        Put now(t_, T_, S0_, r_, sigma_, N_, dS_, M_, seed_);
         Put up(t_, T_, S0_, r_ + eps_rho, sigma_, N_, dS_, M_, seed_);
 
-        return (up.price() - this->price()) / eps_rho;
+        // Forward finite difference
+        return (up.price() - now.price()) / eps_rho;
     }
 
 }
